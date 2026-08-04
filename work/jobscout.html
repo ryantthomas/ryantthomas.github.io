@@ -119,25 +119,14 @@
   </p>
 </div>
 
-<h2>What broke</h2>
-<p>
-  Unstated experience requirements. The first version dropped any posting where
-  it couldn't parse a years figure, which silently discarded a large share of
-  perfectly good roles — plenty of postings simply don't state a number. The
-  filter was quietly doing the opposite of its job, and because the output still
-  looked reasonable it took a manual spot-check against a company's careers page
-  to notice. The rule is now explicit and documented: unstated always passes.
-  Ambiguity should widen the funnel, not narrow it.
-</p>
-
 <h2>Verification</h2>
 <p>
   Every run writes both sides of the decision — <code>qualified.json</code> and
   <code>rejected.json</code> — so a filter change can be diffed against the
-  previous run rather than trusted. Rejections are the more useful artifact:
-  spot-checking what got dropped is how the unstated-years bug surfaced, and
-  it's the only way to catch a filter that's too aggressive, since an
-  over-filtered result set looks identical to a genuinely thin market.
+  previous run rather than trusted. Rejections are the more useful artifact —
+  an over-filtered result set looks identical to a genuinely thin market, so
+  spot-checking what got dropped is the only way to catch a filter that's too
+  aggressive. Postings that don't state a requirement always pass.
 </p>
 
 <h2>Constraints and non-goals</h2>

@@ -107,17 +107,6 @@
   </p>
 </div>
 
-<h2>What broke</h2>
-<p>
-  The first decomposition pass produced graphs with cycles — the model would
-  make A a prerequisite of B and B a prerequisite of A, usually for two
-  genuinely intertwined concepts. Nothing crashed. The elements involved simply
-  never unlocked, and the session looked like it had run out of material. It
-  presented as an empty curriculum rather than a graph error, which is why it
-  took a while to find. Cycle detection now runs at decomposition time and
-  rejects the graph before it's stored, where the error is attributable.
-</p>
-
 <h2>Verification</h2>
 <p>
   <code>test_scheduler.py</code> pins the SM-2 interval math against known

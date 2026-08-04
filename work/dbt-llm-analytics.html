@@ -113,17 +113,6 @@
   </p>
 </div>
 
-<h2>What broke</h2>
-<p>
-  The Killercoda lab kept passing locally and failing for readers. The verify
-  scripts were checking that a model existed rather than that it had been built
-  correctly, so a step could go green on a stale artifact from a previous
-  attempt — and the failure only appeared two steps later, attributed to the
-  wrong step. Each verify script now asserts against the built output, and
-  they're written assuming the reader arrives with a dirty working directory,
-  because they usually do.
-</p>
-
 <h2>Verification</h2>
 <p>
   The dbt project's own schema tests are the verification, which is the point of

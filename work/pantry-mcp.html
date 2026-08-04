@@ -115,18 +115,6 @@
   </p>
 </div>
 
-<h2>What broke</h2>
-<p>
-  The first ingredient matcher used normalized string equality, which is fine
-  until "scallions" and "green onions" are the same thing and "cream" and "sour
-  cream" are emphatically not. Loosening the match to catch the first case
-  immediately produced the second, and the failure is silent — you get a
-  confident "you can make this" and discover the problem at the stove. What
-  fixed it wasn't a cleverer matcher but a test module dedicated to identity
-  cases, so every rule change is checked against the pairs that must match and
-  the pairs that must not.
-</p>
-
 <h2>Verification</h2>
 <p>
   The tests concentrate on the two layers where this kind of tool fails quietly:
@@ -146,7 +134,7 @@
 
 <h2>What I'd do differently</h2>
 <ul>
-  <li>Model ingredient identity as an explicit synonym table from the start instead of growing it out of the matcher. It became one anyway, just later and with more test churn.</li>
+  <li>Model ingredient identity as an explicit synonym table rather than a match key — "scallions" and "green onions" are the same thing, and a key can't express that.</li>
   <li>Version the decision journal separately from recipes, so "what did I cook last spring" survives a recipe being edited.</li>
 </ul>
 
