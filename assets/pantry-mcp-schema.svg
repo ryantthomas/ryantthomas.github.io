@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500" role="img"
+     aria-label="Entity-relationship diagram of the pantry-mcp SQLite schema: recipes, ingredients, recipe_ingredients, tags, recipe_tags, recipe_links, inventory and decisions, with foreign keys between them.">
+<style>
+  .bg  { fill: #fdfdfc; }
+  .tbl { fill: #ffffff; stroke: #d8d5cd; stroke-width: 1.5; rx: 7; }
+  .hd  { fill: #eaf1ee; stroke: #2f5d50; stroke-width: 1.5; }
+  .nm  { font-family: ui-monospace, Consolas, monospace; font-size: 12px; font-weight: 700; fill: #23211d; }
+  .col { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; fill: #6b6862; }
+  .key { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; fill: #2f5d50; font-weight: 700; }
+  .ln  { stroke: #a9a49a; stroke-width: 1.5; fill: none; marker-end: url(#c); }
+  .ah  { fill: #a9a49a; }
+  .note{ font-family: -apple-system, "Segoe UI", sans-serif; font-size: 11px; fill: #6b6862; font-style: italic; }
+  @media (prefers-color-scheme: dark) {
+    .bg  { fill: #16161a; }
+    .tbl { fill: #1e1e23; stroke: #3a3a44; }
+    .hd  { fill: #1c2c27; stroke: #7fbfa8; }
+    .nm  { fill: #e8e6e1; }
+    .col, .note { fill: #a3a099; }
+    .key { fill: #7fbfa8; }
+    .ln  { stroke: #6d6a63; }
+    .ah  { fill: #6d6a63; }
+  }
+</style>
+<defs>
+  <marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" class="ah"/>
+  </marker>
+</defs>
+<rect class="bg" x="0" y="0" width="900" height="500"/>
+
+<!-- recipes -->
+<rect class="tbl" x="40" y="40" width="180" height="132"/>
+<rect class="hd"  x="40" y="40" width="180" height="26" rx="7"/>
+<text class="nm"  x="52" y="58">recipes</text>
+<text class="key" x="52" y="82">id  PK</text>
+<text class="col" x="52" y="99">title</text>
+<text class="col" x="52" y="116">instructions</text>
+<text class="col" x="52" y="133">servings_count</text>
+<text class="col" x="52" y="150">total_minutes</text>
+<text class="col" x="52" y="165">source_url</text>
+
+<!-- recipe_ingredients -->
+<rect class="tbl" x="330" y="30" width="200" height="166"/>
+<rect class="hd"  x="330" y="30" width="200" height="26" rx="7"/>
+<text class="nm"  x="342" y="48">recipe_ingredients</text>
+<text class="key" x="342" y="72">recipe_id  FK</text>
+<text class="key" x="342" y="89">ingredient_id  FK</text>
+<text class="col" x="342" y="106">quantity</text>
+<text class="col" x="342" y="123">unit</text>
+<text class="key" x="342" y="140">base_quantity</text>
+<text class="key" x="342" y="157">dimension</text>
+<text class="col" x="342" y="174">prep</text>
+<text class="col" x="342" y="189">position</text>
+
+<!-- ingredients -->
+<rect class="tbl" x="646" y="40" width="200" height="115"/>
+<rect class="hd"  x="646" y="40" width="200" height="26" rx="7"/>
+<text class="nm"  x="658" y="58">ingredients</text>
+<text class="key" x="658" y="82">id  PK</text>
+<text class="col" x="658" y="99">name</text>
+<text class="key" x="658" y="116">match_key</text>
+<text class="col" x="658" y="133">is_staple</text>
+<text class="col" x="658" y="149">grams_per_cup</text>
+
+<!-- inventory -->
+<rect class="tbl" x="646" y="222" width="200" height="115"/>
+<rect class="hd"  x="646" y="222" width="200" height="26" rx="7"/>
+<text class="nm"  x="658" y="240">inventory</text>
+<text class="key" x="658" y="264">ingredient_id  FK</text>
+<text class="col" x="658" y="281">quantity</text>
+<text class="col" x="658" y="298">unit</text>
+<text class="key" x="658" y="315">base_quantity</text>
+<text class="col" x="658" y="331">updated_at</text>
+
+<!-- tags -->
+<rect class="tbl" x="330" y="248" width="150" height="81"/>
+<rect class="hd"  x="330" y="248" width="150" height="26" rx="7"/>
+<text class="nm"  x="342" y="266">tags</text>
+<text class="key" x="342" y="290">id  PK</text>
+<text class="col" x="342" y="307">name</text>
+<text class="col" x="342" y="323">kind</text>
+
+<!-- recipe_tags -->
+<rect class="tbl" x="140" y="248" width="150" height="64"/>
+<rect class="hd"  x="140" y="248" width="150" height="26" rx="7"/>
+<text class="nm"  x="152" y="266">recipe_tags</text>
+<text class="key" x="152" y="290">recipe_id  FK</text>
+<text class="key" x="152" y="306">tag_id  FK</text>
+
+<!-- recipe_links -->
+<rect class="tbl" x="40" y="366" width="200" height="81"/>
+<rect class="hd"  x="40" y="366" width="200" height="26" rx="7"/>
+<text class="nm"  x="52" y="384">recipe_links</text>
+<text class="key" x="52" y="408">from_recipe_id  FK</text>
+<text class="key" x="52" y="425">to_recipe_id  FK</text>
+<text class="col" x="52" y="441">relation</text>
+
+<!-- decisions -->
+<rect class="tbl" x="330" y="366" width="200" height="98"/>
+<rect class="hd"  x="330" y="366" width="200" height="26" rx="7"/>
+<text class="nm"  x="342" y="384">decisions</text>
+<text class="key" x="342" y="408">recipe_id  FK</text>
+<text class="col" x="342" y="425">batch</text>
+<text class="col" x="342" y="442">action</text>
+<text class="col" x="342" y="458">reason</text>
+
+<!-- edges -->
+<path class="ln" d="M 220 100 L 326 100"/>
+<path class="ln" d="M 530 100 L 642 100"/>
+<path class="ln" d="M 746 155 L 746 218"/>
+<path class="ln" d="M 290 278 L 326 278"/>
+<path class="ln" d="M 152 248 L 130 200 L 130 120 L 36 120" transform="translate(0,0)"/>
+<path class="ln" d="M 140 404 L 60 404 L 60 178"/>
+<path class="ln" d="M 400 366 L 400 200"/>
+
+<text class="note" x="560" y="420">match_key resolves ingredient identity;</text>
+<text class="note" x="560" y="438">base_quantity + dimension are the</text>
+<text class="note" x="560" y="456">normalized units written on import.</text>
+</svg>

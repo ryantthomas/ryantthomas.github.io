@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pantry-mcp — Ryan Thomas</title>
+<meta name="description" content="An MCP server over a normalized SQLite cooking data lake: inventory, recipe ranking by missing ingredients, and a decision journal.">
+<link rel="canonical" href="https://ryantthomas.github.io/work/pantry-mcp.html">
+<meta property="og:title" content="pantry-mcp — Ryan Thomas">
+<meta property="og:description" content="A cooking data lake with 18 MCP tools, an 8-table schema, and the unit-conversion problem taken seriously.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="brand" href="/">Ryan Thomas</a>
+  <a href="/#work">Work</a>
+  <a href="/resume/">Résumé</a>
+  <a href="https://github.com/ryantthomas">GitHub</a>
+  <a href="mailto:ryanthomas624@gmail.com">Email</a>
+</nav>
+
+<a class="back" href="/">← Back to all work</a>
+
+<h1>pantry-mcp</h1>
+<p class="lede">
+  An MCP server over a normalized SQLite database of recipes, kitchen inventory,
+  and cooking decisions. Ask it what to make and it ranks what you've already
+  saved by how little you'd have to buy — then records what you actually chose,
+  so the ranking improves instead of just accumulating.
+</p>
+<p class="stack">Python · SQLite · MCP · pytest · GitHub Actions · MIT</p>
+
+<h2>The problem</h2>
+<p>
+  Ask a language model what to cook and it invents something plausible. That's
+  the wrong output twice over: it ignores the recipes you already know you like,
+  and it doesn't know what's in your kitchen, so half the ingredients need a
+  shopping trip. The fix isn't a better prompt — it's giving the model a real
+  data store and a set of operations narrow enough that it can't wander.
+</p>
+<p>
+  Underneath the domain is a genuine data-modeling problem. "2 tbsp butter",
+  "30g butter" and "1/4 stick of butter" are the same ingredient at three
+  quantities in three unit systems, and a naive schema will happily tell you
+  you're short on butter while you're holding a full stick.
+</p>
+
+<h2>Architecture</h2>
+
+<figure>
+  <img src="../assets/pantry-mcp-schema.svg" alt="Entity-relationship diagram of the pantry-mcp SQLite schema, showing recipes, ingredients, recipe_ingredients, inventory, tags, recipe_tags, recipe_links and decisions tables and their foreign keys.">
+  <figcaption>
+    Eight tables. <code>recipe_ingredients</code> is the join that carries
+    quantity and unit; <code>inventory</code> is what's physically in the kitchen;
+    <code>decisions</code> is the journal that makes the whole thing a data lake
+    rather than a recipe box.
+  </figcaption>
+</figure>
+
+<p>
+  Ingredients are stored once and referenced, so "butter" is one row no matter
+  how many recipes use it. Quantities normalize to a canonical unit on write,
+  which is what makes "can I make this?" a query rather than a guess. Recipes
+  link to their variants, so a modified dish is a related record rather than an
+  edit that destroys the original.
+</p>
+
+<h2>Scope</h2>
+
+<div class="scroll-x">
+<table>
+  <tr><th>Interface</th><td>18 MCP tools — search, inventory, ranking, import, scaling, rating, shopping list, decision journal</td></tr>
+  <tr><th>Schema</th><td>8 tables: recipes, ingredients, recipe_ingredients, inventory, tags, recipe_tags, recipe_links, decisions</td></tr>
+  <tr><th>Import</th><td>Reads a site's own structured data rather than reconstructing recipes from model memory, so quantities are exact</td></tr>
+  <tr><th>Tests</th><td>7 modules, offline and fixture-based — no network in CI</td></tr>
+  <tr><th>CI</th><td>GitHub Actions on every push</td></tr>
+</table>
+</div>
+
+<h2>Three decisions worth explaining</h2>
+
+<div class="decision">
+  <h4>Import from structured data, never from the model</h4>
+  <p>
+    Given a recipe URL, the obvious move is to let the model read the page and
+    write out the recipe. It works, and it silently rounds. Recipe sites publish
+    machine-readable structured data, so the importer parses that instead. The
+    model chooses <em>which</em> recipe; it never transcribes quantities. A
+    language model is the wrong tool for a job with an exact answer.
+  </p>
+</div>
+
+<div class="decision">
+  <h4>Normalize units on write, not on read</h4>
+  <p>
+    Storing what the recipe said and converting at query time is simpler to
+    build and puts the conversion in the hot path of every ranking query, where
+    a failed conversion becomes a wrong answer rather than a loud error. Doing
+    it on write means one canonical unit per ingredient, ranking is plain SQL,
+    and anything unparseable fails at import when there's a human present to see
+    it.
+  </p>
+</div>
+
+<div class="decision">
+  <h4>Scaling returns a projection instead of saving</h4>
+  <p>
+    Doubling a recipe looks like an edit and isn't. If scaling wrote back, the
+    saved recipe would drift every time someone cooked for a different number of
+    people, and the original would be unrecoverable. Scaling returns a computed
+    view and leaves the record alone; changing an actual ingredient creates a
+    linked variant. The rule is that a recipe row means what its author wrote.
+  </p>
+</div>
+
+<h2>What broke</h2>
+<p>
+  The first ingredient matcher used normalized string equality, which is fine
+  until "scallions" and "green onions" are the same thing and "cream" and "sour
+  cream" are emphatically not. Loosening the match to catch the first case
+  immediately produced the second, and the failure is silent — you get a
+  confident "you can make this" and discover the problem at the stove. What
+  fixed it wasn't a cleverer matcher but a test module dedicated to identity
+  cases, so every rule change is checked against the pairs that must match and
+  the pairs that must not.
+</p>
+
+<h2>Verification</h2>
+<p>
+  The tests concentrate on the two layers where this kind of tool fails quietly:
+  <code>test_units.py</code> and <code>test_scaling.py</code> cover conversion
+  and proportional math, and <code>test_identity.py</code> covers ingredient
+  matching. <code>test_parsing.py</code> and <code>test_importer.py</code> run
+  against fixtures rather than live sites, so CI doesn't depend on someone
+  else's markup staying still.
+</p>
+
+<h2>Constraints and non-goals</h2>
+<ul>
+  <li>Single-user, local SQLite. No sync, no accounts, no server.</li>
+  <li>Not a nutrition tracker — no calorie or macro modeling.</li>
+  <li>Import depends on sites publishing structured data. Ones that don't are out of scope by design rather than scraped.</li>
+</ul>
+
+<h2>What I'd do differently</h2>
+<ul>
+  <li>Model ingredient identity as an explicit synonym table from the start instead of growing it out of the matcher. It became one anyway, just later and with more test churn.</li>
+  <li>Version the decision journal separately from recipes, so "what did I cook last spring" survives a recipe being edited.</li>
+</ul>
+
+<h2>Links</h2>
+<p><a href="https://github.com/ryantthomas/pantry-mcp">github.com/ryantthomas/pantry-mcp</a></p>
+
+<footer>
+  <div class="contact-row">
+    <a href="mailto:ryanthomas624@gmail.com">ryanthomas624@gmail.com</a>
+    <a href="https://github.com/ryantthomas">GitHub</a>
+    <a href="https://linkedin.com/in/ryan-t-thomas">LinkedIn</a>
+    <a href="/resume/">Full résumé</a>
+  </div>
+  <p style="margin:0">Alexandria, VA · seeking remote (US)</p>
+</footer>
+
+</div>
+</body>
+</html>
