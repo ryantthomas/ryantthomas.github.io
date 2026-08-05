@@ -56,7 +56,8 @@ experience:
       - Develop and manage a central dbt model spanning multiple enterprise applications, with 25+ marts serving roughly 150 report consumers.
       - Contribute to orchestrated ETL/ELT pipelines across enterprise systems (Accounting, EGMS, MS SQL Server, AWS).
       - Design and deploy AWS infrastructure — Terraform, Lambda, Glue, S3, CloudWatch — as a primary AI and data developer.
-      - Drive Enterprise AI strategy and engineer the core infrastructure: MCP servers, deterministic agent workflows, and document libraries of 200,000+ indexed records.
+      # Quote any value containing ": " — bare YAML reads it as a mapping.
+      - "Drive Enterprise AI strategy and engineer the core infrastructure: MCP servers, deterministic agent workflows, and document libraries of 200,000+ indexed records."
       - Established data governance — standardized quality checks, a central data dictionary, and lineage tracking.
       - First point of contact for data needs across compliance, finance, and operations.
 
