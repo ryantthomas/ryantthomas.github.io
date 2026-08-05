@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.yaml';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const byGroup = (key: string) => projects.filter((p) => p.data.group === key);
+---
+<Base
+  title={`${site.name} — ${site.role}`}
+  description={site.lede.replace(/\s+/g, ' ')}
+>
+  <header>
+    <h1>{site.name} — {site.role}</h1>
+    <p class="lede">{site.lede}</p>
+    <p class="stack">{site.stack.join(' · ')}</p>
+    <p><span class="availability">{site.availability}</span></p>
+    <div class="contact-row">
+      <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+      <a href={site.contact.github}>GitHub</a>
+      <a href={site.contact.linkedin}>LinkedIn</a>
+      <a href="/resume/">Full résumé</a>
+    </div>
+  </header>
+
+  <main>
+    {site.groups.map((group: any, i: number) => (
+      <>
+        <h2 id={i === 0 ? 'work' : undefined}>{group.title}</h2>
+        <p class="group-intro">{group.intro}</p>
+
+        {byGroup(group.key).map((p) => (
+          <article class="card">
+            <h3><a href={`/work/${p.id}/`}>{p.data.title}</a></h3>
+            <p class="what">{p.data.summary}</p>
+            <p class="scope">{p.data.scope.join(' · ')}</p>
+            <p class="tech">{p.data.tech}</p>
+            <p class="what">{p.data.differentiator}</p>
+            <p class="links">
+              <a href={`/work/${p.id}/`}>Case study →</a>
+              {p.data.repo && <a href={p.data.repo}>GitHub →</a>}
+              {p.data.private && <span class="muted">private repo</span>}
+            </p>
+          </article>
+        ))}
+      </>
+    ))}
+
+    <h2 id="experience">Experience</h2>
+    {site.experience.map((job: any) => (
+      <>
+        <div class="role">
+          <span class="who">{job.role} · {job.org}</span>
+          <span class="when">{job.dates}</span>
+        </div>
+        <ul>{job.bullets.map((b: string) => <li>{b}</li>)}</ul>
+      </>
+    ))}
+
+    <h2>Education</h2>
+    <p>
+      <strong>{site.education.degree}</strong><br />
+      {site.education.school} · {site.education.date}
+    </p>
+  </main>
+</Base>

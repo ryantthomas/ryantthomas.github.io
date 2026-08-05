@@ -1,20 +1,36 @@
 # ryantthomas.github.io
 
-My portfolio site. Plain HTML and CSS — no build step, no dependencies, no JS.
+My portfolio and résumé. Astro, deployed to GitHub Pages by Actions on push to `main`.
+
+## Where things live
 
 ```
-index.html      the whole pitch: fold, projects, experience, education
-style.css       one stylesheet, light + dark via prefers-color-scheme
-assets/         hand-authored SVG diagrams
-work/           one case study per project
+src/data/site.yaml        every fact about me — bio, contact, experience, skills
+src/content/projects/     one Markdown file per case study
+src/content/posts/        blog posts (empty for now)
+src/pages/                index, /resume, /work/[slug]
+src/layouts/Base.astro    nav + footer shared by every page
+src/styles/global.css     one stylesheet, light + dark + print
+public/assets/            hand-authored SVG diagrams
 ```
 
-Edit, commit, push. GitHub Pages serves `main` from the root.
+`site.yaml` is the single source of truth. The homepage and the résumé both read
+from it, so a fact is fixed in one place, not six.
 
-To preview locally:
+## Adding things
+
+**A project** — drop a `.md` file in `src/content/projects/`. The frontmatter is
+schema-validated in `src/content.config.ts`; a missing scope line or a bad group
+key fails the build rather than rendering a broken card.
+
+**A post** — drop a `.md` file in `src/content/posts/`.
+
+## Running it
 
 ```bash
-python -m http.server 8000
+npm install
+npm run dev      # localhost:4321, live reload
+npm run build    # -> dist/
 ```
 
-The résumé is a separate repo, served at [/resume](https://ryantthomas.github.io/resume/).
+The résumé prints to a clean PDF from the browser (Ctrl/Cmd + P).

@@ -1,0 +1,100 @@
+# ---------------------------------------------------------------------------
+# Single source of truth for everything factual about me.
+# Edit here; the homepage, every case study, and the résumé all read from it.
+# ---------------------------------------------------------------------------
+
+name: Ryan Thomas
+role: Data / Analytics Engineer
+
+# The positioning line. Keep it defensible under scrutiny — state what the
+# years actually were, not a rounded-up total.
+lede: >-
+  I build the analytics, reporting and AI layer at the National Fish and
+  Wildlife Foundation — two years there, after four years in network
+  operations at Cisco.
+
+# Six to eight tokens, max. These are what a JD keyword scan catches.
+stack: [dbt, BigQuery, Terraform, Python, SQL, GCP, AWS]
+
+availability: Remote · US Eastern · open to analytics / data engineering roles
+location: Alexandria, VA
+locationNote: Alexandria, VA · seeking remote (US)
+
+contact:
+  email: ryanthomas624@gmail.com
+  github: https://github.com/ryantthomas
+  githubLabel: github.com/ryantthomas
+  linkedin: https://linkedin.com/in/ryan-t-thomas
+  linkedinLabel: linkedin.com/in/ryan-t-thomas
+  # Résumé only — kept off the portfolio to avoid recruiter spam.
+  phone: (336) 813-2235
+
+# Homepage project groupings. Ordered by how they appear.
+groups:
+  - key: platforms
+    title: Production data platforms
+    intro: >-
+      Ingestion through to a modeled, served layer — provisioned as code and
+      running on a schedule, not by hand.
+  - key: agents
+    title: Agent-facing data interfaces
+    intro: >-
+      Governed, read-constrained interfaces that let a language model query a
+      data store without being handed the keys to it.
+  - key: tooling
+    title: Analytics enablement & tooling
+    intro: >-
+      Teaching the stack, and building the tool when the off-the-shelf one
+      couldn't express the query.
+
+experience:
+  - role: Enterprise Reporting Specialist
+    org: National Fish and Wildlife Foundation
+    place: Washington, DC
+    dates: Jul 2024 – Present
+    bullets:
+      - Develop and manage a central dbt model spanning multiple enterprise applications, with 25+ marts serving roughly 150 report consumers.
+      - Contribute to orchestrated ETL/ELT pipelines across enterprise systems (Accounting, EGMS, MS SQL Server, AWS).
+      - Design and deploy AWS infrastructure — Terraform, Lambda, Glue, S3, CloudWatch — as a primary AI and data developer.
+      - Drive Enterprise AI strategy and engineer the core infrastructure: MCP servers, deterministic agent workflows, and document libraries of 200,000+ indexed records.
+      - Established data governance — standardized quality checks, a central data dictionary, and lineage tracking.
+      - First point of contact for data needs across compliance, finance, and operations.
+
+  - role: High Touch Operations Manager
+    org: Cisco Systems
+    place: Herndon, VA
+    dates: Jul 2020 – Jun 2024
+    bullets:
+      - Automated QBR metrics by pulling Salesforce API data into a generated reporting pack, eliminating manual export and prep.
+      - Built Jira dashboards tracking service-request SLAs and support metrics across the AT&T account.
+      - Primary point of contact for AT&T escalations, coordinating Cisco engineering and customer network teams and presenting service health to engineering leadership.
+
+  - role: Analytics Developer Intern
+    org: Charter Communications
+    place: Maryland Heights, MO
+    dates: May 2019 – Aug 2019
+    bullets:
+      - Built an Alteryx pipeline connecting multi-source SQL accounting data to Tableau dashboards, letting directors track budget risk across software projects.
+
+education:
+  degree: B.S. Statistics & Analytics, Second Major in Computer Science
+  school: University of North Carolina at Chapel Hill
+  place: Chapel Hill, NC
+  date: May 2020
+
+# Résumé only.
+skills:
+  - label: Databases
+    value: Relational (SQL Server, SQLite, PostgreSQL), Warehouse (Athena, BigQuery), Graph & NoSQL data modeling
+  - label: Cloud
+    value: AWS (Lambda, Glue, S3, CloudWatch), GCP, Cloudflare
+  - label: Analytics
+    value: ETL/ELT, dbt, TMDL, pandas, REST API integration, pipeline orchestration
+  - label: BI & AI
+    value: MCP server development, agent workflow design, RAG & document indexing, Tableau, Power BI
+  - label: Languages
+    value: Python, SQL, JavaScript
+  - label: DevOps & Tooling
+    value: Git, CI/CD, Docker, Terraform
+  - label: Business
+    value: Change Management, Stakeholder Communication, Project Management, Requirements Analysis

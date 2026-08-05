@@ -1,0 +1,215 @@
+/* ---------------------------------------------------------------------------
+   Portfolio + résumé. One stylesheet, light and dark.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --bg:        #fdfdfc;
+  --surface:   #f5f4f1;
+  --border:    #e2e0da;
+  --text:      #23211d;
+  --muted:     #6b6862;
+  --accent:    #2f5d50;
+  --accent-bg: #eaf1ee;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+  --measure: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16161a; --surface: #1e1e23; --border: #32323a;
+    --text: #e8e6e1; --muted: #a3a099; --accent: #7fbfa8; --accent-bg: #1c2c27;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16161a; --surface: #1e1e23; --border: #32323a;
+  --text: #e8e6e1; --muted: #a3a099; --accent: #7fbfa8; --accent-bg: #1c2c27;
+}
+:root[data-theme="light"] {
+  --bg: #fdfdfc; --surface: #f5f4f1; --border: #e2e0da;
+  --text: #23211d; --muted: #6b6862; --accent: #2f5d50; --accent-bg: #eaf1ee;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  padding: 0 1.5rem 5rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 52rem; margin: 0 auto; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+.muted { color: var(--muted); }
+
+/* --- nav ------------------------------------------------------------------ */
+
+nav {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 0.5rem 1.25rem;
+  padding: 1.75rem 0 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+nav .brand { font-weight: 650; margin-right: auto; color: var(--text); text-decoration: none; }
+nav a:not(.brand) { font-size: 0.94rem; color: var(--muted); text-decoration: none; }
+nav a:not(.brand):hover { color: var(--accent); text-decoration: underline; }
+
+/* --- fold ----------------------------------------------------------------- */
+
+h1 {
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.lede { font-size: 1.12rem; max-width: var(--measure); margin: 0 0 1.5rem; }
+
+.stack {
+  font-family: var(--mono); font-size: 0.86rem; color: var(--muted);
+  margin: 0 0 1.5rem; word-spacing: 0.1em;
+}
+
+.availability {
+  display: inline-block; background: var(--accent-bg); color: var(--accent);
+  border-radius: 999px; padding: 0.3rem 0.9rem;
+  font-size: 0.87rem; font-weight: 550; margin-bottom: 1.5rem;
+}
+
+.contact-row {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem;
+  font-size: 0.95rem; margin-bottom: 1rem;
+}
+
+/* --- sections ------------------------------------------------------------- */
+
+h2 { font-size: 1.35rem; letter-spacing: -0.01em; margin: 3.5rem 0 0.4rem; padding-top: 0.5rem; }
+h3 { font-size: 1.05rem; margin: 2rem 0 0.5rem; }
+h4 { margin: 0 0 0.4rem; font-size: 1rem; }
+
+.group-intro { color: var(--muted); max-width: var(--measure); margin: 0 0 1.75rem; font-size: 0.97rem; }
+
+p { max-width: var(--measure); }
+ul { padding-left: 1.15rem; max-width: var(--measure); }
+li { margin-bottom: 0.35rem; }
+
+/* --- cards ---------------------------------------------------------------- */
+
+.card {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.4rem 1.5rem; margin-bottom: 1.1rem; background: var(--surface);
+}
+.card h3 { margin: 0 0 0.4rem; font-size: 1.12rem; }
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.card .what { margin: 0 0 0.9rem; }
+.card .scope { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin: 0 0 0.5rem; line-height: 1.55; }
+.card .tech { font-size: 0.84rem; color: var(--muted); margin: 0 0 0.9rem; }
+.card .links { font-size: 0.9rem; display: flex; gap: 1.1rem; flex-wrap: wrap; }
+
+/* --- experience ----------------------------------------------------------- */
+
+.role {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 1rem; margin: 1.75rem 0 0.3rem; flex-wrap: wrap;
+}
+.role .who { font-weight: 600; }
+.role .when { font-size: 0.85rem; color: var(--muted); white-space: nowrap; }
+
+/* --- case studies --------------------------------------------------------- */
+
+.back { display: inline-block; font-size: 0.9rem; margin-bottom: 1.5rem; text-decoration: none; }
+.back:hover { text-decoration: underline; }
+
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; margin: 1rem 0 1.5rem; }
+th, td { text-align: left; padding: 0.55rem 0.8rem 0.55rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-weight: 600; padding-right: 1.5rem; }
+
+/* Wide tables scroll inside themselves; the page never scrolls sideways. */
+.scroll-x, .astro-table-wrap { overflow-x: auto; max-width: 100%; }
+
+pre {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 1rem 1.1rem; overflow-x: auto;
+  font-family: var(--mono); font-size: 0.82rem; line-height: 1.55;
+}
+code { font-family: var(--mono); font-size: 0.88em; }
+p code, li code, td code {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 0.1em 0.35em;
+}
+pre code { background: none; border: none; padding: 0; }
+
+figure { margin: 1.5rem 0; }
+figure img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
+figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+
+blockquote.decision, .decision {
+  border-left: 3px solid var(--accent);
+  padding: 0.1rem 0 0.1rem 1.1rem; margin: 1.5rem 0;
+}
+.decision p { margin: 0; }
+
+.note {
+  background: var(--accent-bg); border-radius: 8px;
+  padding: 0.9rem 1.1rem; font-size: 0.93rem; margin: 1.5rem 0;
+}
+.note p { margin: 0; max-width: none; }
+
+/* --- footer --------------------------------------------------------------- */
+
+footer {
+  margin-top: 4.5rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem; color: var(--muted);
+}
+footer .contact-row { margin-bottom: 0.5rem; }
+
+/* --- résumé --------------------------------------------------------------- */
+
+.wrap-resume { max-width: 50rem; margin: 0 auto; padding-top: 1.5rem; }
+body.resume { font-size: 15px; line-height: 1.5; }
+.resume-head { text-align: center; margin-bottom: 1.25rem; }
+.resume-head h1 { font-size: 2rem; margin-bottom: 0.35rem; }
+.resume-contact { font-size: 0.8rem; max-width: none; margin: 0; }
+.rule {
+  font-size: 1.05rem; font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  margin: 1.5rem 0 0.5rem; padding-bottom: 0.15rem;
+}
+.skill-line { font-size: 0.85rem; margin: 0.15rem 0; max-width: none; }
+.resume-role {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 1rem; flex-wrap: wrap; margin-top: 0.75rem;
+}
+.resume-role .when { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+ul.desc { font-size: 0.88rem; margin: 0.25rem 0 0; max-width: none; }
+ul.desc li { margin-bottom: 0.15rem; }
+.print-hint { font-size: 0.85rem; color: var(--muted); margin-top: 2rem; }
+
+/* --- print ---------------------------------------------------------------- */
+
+@media print {
+  :root {
+    --bg: #fff; --surface: #fff; --border: #ccc;
+    --text: #000; --muted: #333; --accent: #000; --accent-bg: #fff;
+  }
+  nav, footer, .no-print { display: none !important; }
+  body { font-size: 10.5pt; padding: 0; line-height: 1.35; }
+  body.resume { font-size: 10pt; }
+  .wrap-resume { max-width: none; padding-top: 0; }
+  a { color: #000; text-decoration: none; }
+  .card { break-inside: avoid; background: none; }
+  .resume-role, ul.desc, section { break-inside: avoid; }
+  .rule { margin: 0.9rem 0 0.3rem; }
+  @page { margin: 0.5in; }
+}
