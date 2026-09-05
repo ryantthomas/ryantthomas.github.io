@@ -15,6 +15,7 @@
       <a href="/">Home</a>
       <a href="/resume/" class="active">Resume</a>
       <a href="https://github.com/ryantthomas">GitHub</a>
+      <a href="https://www.linkedin.com/in/ryan-t-thomas/">LinkedIn</a>
       <a href="mailto:ryanthomas624@gmail.com">Email</a>
     </nav>
 
@@ -29,27 +30,60 @@
     </header>
 
     <main>
-      <div class="resume-frame-wrap">
-        <iframe
-          class="resume-frame"
-          src="https://cdn.jsdelivr.net/gh/ryantthomas/resume@main/index.html"
-          title="Ryan Thomas resume"
-          loading="lazy"
-        ></iframe>
-      </div>
       <p class="resume-actions">
-        <a href="https://cdn.jsdelivr.net/gh/ryantthomas/resume@main/index.html">Open full resume ↗</a>
+        <button id="download-pdf" class="btn" type="button" disabled>Download as PDF</button>
+        <a id="open-tab" href="https://github.com/ryantthomas/resume" target="_blank" rel="noopener">Open in a new tab ↗</a>
         <a href="https://github.com/ryantthomas/resume">View source on GitHub ↗</a>
       </p>
-    </main>
 
-    <footer>
-      <div class="contact-row">
-        <a href="mailto:ryanthomas624@gmail.com">ryanthomas624@gmail.com</a>
-        <a href="https://github.com/ryantthomas">GitHub</a>
-        <a href="https://www.linkedin.com/in/ryan-t-thomas/">LinkedIn</a>
+      <div class="resume-frame-wrap">
+        <iframe
+          id="resume-frame"
+          class="resume-frame"
+          title="Ryan Thomas resume"
+        ></iframe>
+        <p id="resume-fallback" class="resume-fallback muted" hidden>
+          Couldn't load the resume inline. View it directly on
+          <a href="https://github.com/ryantthomas/resume">GitHub</a>.
+        </p>
       </div>
-    </footer>
+    </main>
   </div>
+
+  <script>
+    (function () {
+      var RAW_URL = 'https://raw.githubusercontent.com/ryantthomas/resume/main/index.html';
+      var frame = document.getElementById('resume-frame');
+      var fallback = document.getElementById('resume-fallback');
+      var downloadBtn = document.getElementById('download-pdf');
+      var openTab = document.getElementById('open-tab');
+
+      fetch(RAW_URL)
+        .then(function (res) {
+          if (!res.ok) throw new Error('fetch failed: ' + res.status);
+          return res.text();
+        })
+        .then(function (html) {
+          // srcdoc makes the frame same-origin, so print() and PDF export can
+          // reach into it. A plain src="raw.githubusercontent.com/..." would
+          // render as escaped source text, since GitHub serves raw files as
+          // text/plain with nosniff.
+          frame.srcdoc = html;
+
+          var blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+          openTab.href = blobUrl;
+
+          downloadBtn.disabled = false;
+          downloadBtn.addEventListener('click', function () {
+            frame.contentWindow.focus();
+            frame.contentWindow.print();
+          });
+        })
+        .catch(function () {
+          frame.hidden = true;
+          fallback.hidden = false;
+        });
+    })();
+  </script>
 </body>
 </html>
