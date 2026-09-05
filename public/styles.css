@@ -115,7 +115,7 @@ h2 { font-size: 1.3rem; letter-spacing: -0.01em; margin: 3rem 0 1.25rem; }
 .card h3 { margin: 0 0 0.15rem; font-size: 1.12rem; }
 .card h3 a { text-decoration: none; }
 .card h3 a:hover { text-decoration: underline; }
-.card .repo-name { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); margin: 0 0 0.75rem; }
+.card .repo-name { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); font-weight: normal; }
 .card .what { margin: 0 0 0.9rem; max-width: var(--measure); }
 
 .stack {
