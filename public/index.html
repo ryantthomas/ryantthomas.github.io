@@ -3,21 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ryan Thomas | Data & Analytics Engineer</title>
-  <meta name="description" content="Ryan Thomas, Data and Analytics Engineer. Projects, experience, and resume." />
+  <title>Ryan Thomas | Projects</title>
+  <meta name="description" content="Projects by Ryan Thomas, Data and Analytics Engineer." />
   <link rel="canonical" href="https://ryantthomas.github.io/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ryantthomas.github.io/" />
-  <meta property="og:title" content="Ryan Thomas | Data & Analytics Engineer" />
-  <meta property="og:description" content="Ryan Thomas, Data and Analytics Engineer. Projects, experience, and resume." />
-  <meta name="twitter:card" content="summary" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <div class="wrap">
     <nav>
-      <a class="brand" href="/">Ryan Thomas</a>
-      <a href="/" class="active">Home</a>
+      <a href="/" class="active">Projects</a>
       <a href="/resume/">Resume</a>
       <a href="https://github.com/ryantthomas">GitHub</a>
       <a href="https://www.linkedin.com/in/ryan-t-thomas/">LinkedIn</a>
@@ -27,27 +21,114 @@
     <header>
       <h1>Ryan Thomas</h1>
       <p class="role">Data & Analytics Engineer</p>
-      <p class="lede">
-        I build the analytics, reporting, and AI layer at the National Fish
-        and Wildlife Foundation, after four years in network operations at
-        Cisco.
-      </p>
-      <ul class="tags">
-        <li>dbt</li>
-        <li>BigQuery</li>
-        <li>Terraform</li>
-        <li>Python</li>
-        <li>SQL</li>
-        <li>GCP</li>
-        <li>AWS</li>
-      </ul>
     </header>
 
     <main>
+      <h2>Work</h2>
+      <div class="work-grid">
+
+        <div class="work-tile">
+          <h3>Enterprise Reporting</h3>
+          <p>Built self-service Power BI semantic models and migrated a legacy BI platform enterprise-wide.</p>
+          <ul class="stack">
+            <li>Power BI</li><li>Tableau</li><li>dbt</li><li>SQL Server</li><li>Python</li><li>AWS</li>
+          </ul>
+        </div>
+
+        <div class="work-tile">
+          <h3>MCP Development</h3>
+          <p>Built MCP servers connecting LLMs to live analytics tooling and enterprise data.</p>
+          <ul class="stack">
+            <li>TypeScript</li><li>MCP</li><li>Cloudflare</li>
+          </ul>
+        </div>
+
+        <div class="work-tile">
+          <h3>AI Infrastructure</h3>
+          <p>Designed and deployed AWS infrastructure for an enterprise AI data lake with content management.</p>
+          <ul class="stack">
+            <li>AWS</li><li>CloudWatch</li>
+          </ul>
+        </div>
+
+        <div class="work-tile">
+          <h3>Data Engineering</h3>
+          <p>Builds and maintains ETL/ELT pipelines and a central dbt data model spanning enterprise systems.</p>
+          <ul class="stack">
+            <li>SQL Server</li>
+          </ul>
+        </div>
+
+        <div class="work-tile">
+          <h3>Data Governance</h3>
+          <p>Established dbt testing, a central data glossary, and governance standards across internal teams.</p>
+          <ul class="stack">
+            <li>dbt</li><li>Confluence</li><li>Git</li>
+          </ul>
+        </div>
+
+        <div class="work-tile">
+          <h3>Web Applications</h3>
+          <p>Built internal apps for AI tooling and enterprise resources.</p>
+          <ul class="stack">
+            <li>Flask</li><li>React</li>
+          </ul>
+        </div>
+
+        <div class="work-tile">
+          <h3>API &amp; Application Integrations</h3>
+          <p>Configured enterprise integrations connecting accounting systems, grant management, and cloud infrastructure.</p>
+          <ul class="stack">
+            <li>CostPoint</li><li>EGMS</li><li>SQL Server</li><li>AWS</li>
+          </ul>
+        </div>
+
+        <div class="work-tile">
+          <h3>Graph Databases &amp; AI</h3>
+          <p>Modeled ontologies and knowledge taxonomies for AI-native applications.</p>
+          <ul class="stack">
+            <li>Ontologies</li><li>Taxonomies</li><li>GCP</li>
+          </ul>
+        </div>
+
+      </div>
+
       <h2>Projects</h2>
 
       <article class="card">
-        <h3><a href="https://github.com/ryantthomas/personal-data-lake">Personal Data Lake</a></h3>
+        <h3><a href="https://github.com/ryantthomas/stock-portfolio-analysis">stock-portfolio-analysis</a></h3>
+        <p class="what">A full-stack portfolio analyzer with a React UI, FastAPI analytics engine, and dbt-modeled DuckDB warehouse that computes risk attribution, diversification, and correlation for any set of holdings.</p>
+        <ul class="stack">
+          <li>React</li>
+          <li>TypeScript</li>
+          <li>FastAPI</li>
+          <li>Python</li>
+          <li>DuckDB</li>
+          <li>dbt</li>
+          <li>Docker</li>
+          <li>Cloud Run</li>
+          <li>GitHub Actions</li>
+        </ul>
+        <p class="links"><a href="https://github.com/ryantthomas/stock-portfolio-analysis">GitHub ↗</a></p>
+      </article>
+
+      <article class="card">
+        <h3><a href="https://github.com/ryantthomas/ontologenius">ontologenius</a></h3>
+        <p class="what">An ontology-governed knowledge graph for structured learning, populated by Claude over MCP and studied through retrieval practice scheduled by FSRS.</p>
+        <ul class="stack">
+          <li>TypeScript</li>
+          <li>Next.js</li>
+          <li>MCP</li>
+          <li>LadybugDB</li>
+          <li>FSRS</li>
+          <li>Zod</li>
+          <li>OAuth 2.1</li>
+        </ul>
+        <p class="links"><a href="https://github.com/ryantthomas/ontologenius">GitHub ↗</a></p>
+      </article>
+
+      <article class="card">
+        <h3><a href="https://github.com/ryantthomas/personal-data-lake">personal-data-lake</a></h3>
         <p class="what">A personal data lake and knowledge graph on Google Cloud, provisioned end to end in Terraform and deployed automatically from GitHub Actions.</p>
         <ul class="stack">
           <li>Terraform</li>
