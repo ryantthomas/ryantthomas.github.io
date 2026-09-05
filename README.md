@@ -1,36 +1,23 @@
 # ryantthomas.github.io
 
-My portfolio and résumé. Astro, deployed to GitHub Pages by Actions on push to `main`.
+My portfolio: one page, plus a resume tab. Plain HTML and CSS, no build step,
+deployed to GitHub Pages by Actions on push to `main`.
 
 ## Where things live
 
 ```
-src/data/site.yaml        every fact about me — bio, contact, experience, skills
-src/content/projects/     one Markdown file per case study
-src/content/posts/        blog posts (empty for now)
-src/pages/                index, /resume, /work/[slug]
-src/layouts/Base.astro    nav + footer shared by every page
-src/styles/global.css     one stylesheet, light + dark + print
-public/assets/            hand-authored SVG diagrams
+public/index.html         the whole portfolio: header, projects, contact
+public/resume/index.html  resume tab, embeds the live resume repo
+public/styles.css         one stylesheet, light + dark
 ```
 
-`site.yaml` is the single source of truth. The homepage and the résumé both read
-from it, so a fact is fixed in one place, not six.
+The resume itself is not duplicated here. `public/resume/index.html` embeds
+[ryantthomas/resume](https://github.com/ryantthomas/resume) live from GitHub
+(via jsDelivr), so that repo stays the single source of truth for the resume.
 
-## Adding things
+## Editing
 
-**A project** — drop a `.md` file in `src/content/projects/`. The frontmatter is
-schema-validated in `src/content.config.ts`; a missing scope line or a bad group
-key fails the build rather than rendering a broken card.
+Edit `public/index.html` directly, then commit and push to `main`. There is
+no build; GitHub Actions publishes `public/` as-is.
 
-**A post** — drop a `.md` file in `src/content/posts/`.
-
-## Running it
-
-```bash
-npm install
-npm run dev      # localhost:4321, live reload
-npm run build    # -> dist/
-```
-
-The résumé prints to a clean PDF from the browser (Ctrl/Cmd + P).
+Deep-dive case study pages for individual projects will come back later.

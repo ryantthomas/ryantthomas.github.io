@@ -1,0 +1,152 @@
+/* ---------------------------------------------------------------------------
+   Ryan Thomas, portfolio. One page plus a resume tab. Light and dark.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --bg:        #fdfdfc;
+  --surface:   #f5f4f1;
+  --border:    #e2e0da;
+  --text:      #23211d;
+  --muted:     #6b6862;
+  --accent:    #2f5d50;
+  --accent-bg: #eaf1ee;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+  --measure: 62ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16161a; --surface: #1e1e23; --border: #32323a;
+    --text: #e8e6e1; --muted: #a3a099; --accent: #7fbfa8; --accent-bg: #1c2c27;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16161a; --surface: #1e1e23; --border: #32323a;
+  --text: #e8e6e1; --muted: #a3a099; --accent: #7fbfa8; --accent-bg: #1c2c27;
+}
+:root[data-theme="light"] {
+  --bg: #fdfdfc; --surface: #f5f4f1; --border: #e2e0da;
+  --text: #23211d; --muted: #6b6862; --accent: #2f5d50; --accent-bg: #eaf1ee;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 1.5rem 4rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 46rem; margin: 0 auto; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+.muted { color: var(--muted); }
+
+/* --- nav ------------------------------------------------------------------ */
+
+nav {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 0.5rem 1.25rem;
+  padding: 1.75rem 0 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+nav .brand { font-weight: 650; margin-right: auto; color: var(--text); text-decoration: none; }
+nav a:not(.brand) { font-size: 0.94rem; color: var(--muted); text-decoration: none; }
+nav a:not(.brand):hover, nav a.active { color: var(--accent); }
+nav a.active { text-decoration: underline; }
+
+/* --- header ----------------------------------------------------------------*/
+
+h1 {
+  font-size: clamp(1.9rem, 5vw, 2.5rem);
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin: 0 0 0.3rem;
+}
+
+.role { font-size: 1.1rem; color: var(--muted); margin: 0 0 1.1rem; }
+
+.lede { font-size: 1.08rem; max-width: var(--measure); margin: 0 0 1.25rem; }
+
+.tags {
+  display: flex; flex-wrap: wrap; gap: 0.45rem;
+  margin: 0 0 1.25rem; padding: 0; list-style: none;
+}
+.tags li {
+  font-family: var(--mono); font-size: 0.8rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.25rem 0.6rem; color: var(--text);
+}
+
+.availability {
+  display: inline-block; background: var(--accent-bg); color: var(--accent);
+  border-radius: 999px; padding: 0.3rem 0.9rem;
+  font-size: 0.87rem; font-weight: 550; margin-bottom: 1.5rem;
+}
+
+.contact-row {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem;
+  font-size: 0.95rem; margin-bottom: 1rem;
+}
+
+/* --- sections --------------------------------------------------------------*/
+
+h2 { font-size: 1.3rem; letter-spacing: -0.01em; margin: 3rem 0 1.25rem; }
+
+/* --- project cards ----------------------------------------------------------*/
+
+.card {
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 1.4rem 1.5rem; margin-bottom: 1.1rem; background: var(--surface);
+}
+.card h3 { margin: 0 0 0.5rem; font-size: 1.12rem; }
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.card .what { margin: 0 0 0.9rem; max-width: var(--measure); }
+
+.stack {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin: 0 0 1rem; padding: 0; list-style: none;
+}
+.stack li {
+  font-family: var(--mono); font-size: 0.78rem; color: var(--muted);
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.2rem 0.55rem;
+}
+
+.card .links { font-size: 0.9rem; }
+
+/* --- resume tab -------------------------------------------------------------*/
+
+.resume-note { max-width: var(--measure); margin: 0 0 1.5rem; }
+
+.resume-frame-wrap {
+  border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+  background: #fff;
+}
+.resume-frame {
+  width: 100%; height: 85vh; border: 0; display: block;
+}
+
+.resume-actions {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+  font-size: 0.92rem; margin: 1rem 0 0;
+}
+
+/* --- footer -----------------------------------------------------------------*/
+
+footer {
+  margin-top: 4rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem; color: var(--muted);
+}
+footer .contact-row { margin-bottom: 0.5rem; }
