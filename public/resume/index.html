@@ -32,7 +32,6 @@
           id="resume-frame"
           class="resume-frame"
           title="Ryan Thomas resume"
-          scrolling="no"
         ></iframe>
         <p id="resume-fallback" class="resume-fallback muted" hidden>
           Couldn't load the resume inline. View it directly on
@@ -55,6 +54,15 @@
           return res.text();
         })
         .then(function (html) {
+          frame.addEventListener('load', function () {
+            // Wait for Bulma CSS to apply before measuring content height
+            setTimeout(function () {
+              try {
+                var doc = frame.contentDocument || frame.contentWindow.document;
+                frame.style.height = doc.documentElement.scrollHeight + 'px';
+              } catch (e) {}
+            }, 400);
+          });
           frame.srcdoc = html;
           downloadBtn.disabled = false;
           downloadBtn.addEventListener('click', function () {
