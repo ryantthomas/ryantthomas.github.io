@@ -24,7 +24,7 @@
 
     <main>
       <p class="resume-actions">
-        <button id="download-pdf" class="btn" type="button" disabled>Download as PDF</button>
+        <a id="download-pdf" class="btn" href="https://raw.githubusercontent.com/ryantthomas/resume/main/ryan-thomas-resume.pdf" download="ryan-thomas-resume.pdf">Download as PDF</a>
       </p>
 
       <div class="resume-frame-wrap">
@@ -46,7 +46,6 @@
       var RAW_URL = 'https://raw.githubusercontent.com/ryantthomas/resume/main/index.html';
       var frame = document.getElementById('resume-frame');
       var fallback = document.getElementById('resume-fallback');
-      var downloadBtn = document.getElementById('download-pdf');
 
       fetch(RAW_URL)
         .then(function (res) {
@@ -55,7 +54,6 @@
         })
         .then(function (html) {
           frame.addEventListener('load', function () {
-            // Wait for Bulma CSS to apply before measuring content height
             setTimeout(function () {
               try {
                 var doc = frame.contentDocument || frame.contentWindow.document;
@@ -64,11 +62,6 @@
             }, 400);
           });
           frame.srcdoc = html;
-          downloadBtn.disabled = false;
-          downloadBtn.addEventListener('click', function () {
-            frame.contentWindow.focus();
-            frame.contentWindow.print();
-          });
         })
         .catch(function () {
           frame.hidden = true;
