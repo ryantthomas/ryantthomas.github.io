@@ -60,9 +60,8 @@ nav {
   border-bottom: 1px solid var(--border);
   margin-bottom: 2.5rem;
 }
-nav .brand { font-weight: 650; margin-right: auto; color: var(--text); text-decoration: none; }
-nav a:not(.brand) { font-size: 0.94rem; color: var(--muted); text-decoration: none; }
-nav a:not(.brand):hover, nav a.active { color: var(--accent); }
+nav a { font-size: 0.94rem; color: var(--muted); text-decoration: none; }
+nav a:hover, nav a.active { color: var(--accent); }
 nav a.active { text-decoration: underline; }
 
 /* --- header ----------------------------------------------------------------*/

@@ -11,7 +11,6 @@
 <body>
   <div class="wrap">
     <nav>
-      <a class="brand" href="/">Ryan Thomas</a>
       <a href="/">Home</a>
       <a href="/resume/" class="active">Resume</a>
       <a href="https://github.com/ryantthomas">GitHub</a>
@@ -21,19 +20,11 @@
 
     <header>
       <h1>Resume</h1>
-      <p class="resume-note muted">
-        Pulled live from my
-        <a href="https://github.com/ryantthomas/resume">resume repository</a>
-        on GitHub, which is the single source of truth. It's what updates
-        when I update that repo.
-      </p>
     </header>
 
     <main>
       <p class="resume-actions">
         <button id="download-pdf" class="btn" type="button" disabled>Download as PDF</button>
-        <a id="open-tab" href="https://github.com/ryantthomas/resume" target="_blank" rel="noopener">Open in a new tab ↗</a>
-        <a href="https://github.com/ryantthomas/resume">View source on GitHub ↗</a>
       </p>
 
       <div class="resume-frame-wrap">
@@ -41,6 +32,7 @@
           id="resume-frame"
           class="resume-frame"
           title="Ryan Thomas resume"
+          scrolling="no"
         ></iframe>
         <p id="resume-fallback" class="resume-fallback muted" hidden>
           Couldn't load the resume inline. View it directly on
@@ -56,7 +48,6 @@
       var frame = document.getElementById('resume-frame');
       var fallback = document.getElementById('resume-fallback');
       var downloadBtn = document.getElementById('download-pdf');
-      var openTab = document.getElementById('open-tab');
 
       fetch(RAW_URL)
         .then(function (res) {
@@ -64,15 +55,7 @@
           return res.text();
         })
         .then(function (html) {
-          // srcdoc makes the frame same-origin, so print() and PDF export can
-          // reach into it. A plain src="raw.githubusercontent.com/..." would
-          // render as escaped source text, since GitHub serves raw files as
-          // text/plain with nosniff.
           frame.srcdoc = html;
-
-          var blobUrl = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
-          openTab.href = blobUrl;
-
           downloadBtn.disabled = false;
           downloadBtn.addEventListener('click', function () {
             frame.contentWindow.focus();
